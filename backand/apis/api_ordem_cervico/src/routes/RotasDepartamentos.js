@@ -20,6 +20,28 @@ router.get('/departamentos', async (req, res) => {
     }
 })
 
+router.post('/departamentos', async (req, res) => {
+    const { nome, descricao } = req.body
+
+    console.log(nome);
+
+    try {
+        const comando = `insert into departamentos(nome, descricao) values($1, $2)`
+        const valores = [nome, descricao]
+
+
+        const responsta = await BD.query(comando, valores)
+        console.log(responsta);
+
+        return res.status(201).json('departamentos cadastrado')
+    } catch (error) {
+        console.error('Erro ao cadastrar departamentos', error.message)
+        return res.status(500).json({ error: 'Erro ao cadastrar departamentos' })
+    }
+
+})
+
+
 router.put('/departamentos/:id_departamento', async (req, res) => {
     const { id_departamento } = req.params;
     const { nome, descricao} = req.body

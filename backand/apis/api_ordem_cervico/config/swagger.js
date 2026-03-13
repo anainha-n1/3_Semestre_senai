@@ -14,7 +14,7 @@ const documentacao = {
     ],
     tags: [
         { name: 'Usuários', description: 'operações realacionadas aos usuários' },
-        { name: 'Departamentos', description: 'operações realacionadas aos Departamentos' },
+        { name: 'departamentos', description: 'operações realacionadas aos departamentos' },
         { name: 'OrdemServico', description: 'operações realacionadas a OrdemServicos' }
     ],
     paths: {
@@ -26,7 +26,7 @@ const documentacao = {
                     200: {
                         description: "Dados obtidos com sucesso",
                         content: {
-                            "apllication/json": {
+                            "application/json": {
                                 schema: {
                                     type: "array",
                                     items: { $ref: "#/components/schemas/Lista_Usuarios" }
@@ -38,7 +38,7 @@ const documentacao = {
             },
             post:{
                 tags:['Usuários'],
-                sumary: 'Cadastrar novo usuário',
+                summary: 'Cadastrar novo usuário',
                 description: 'Recebe nome, email, senha para cadastrar novo usuario',
                 requestBody:{
                     required: true,
@@ -65,8 +65,8 @@ const documentacao = {
         },
         "/usuarios/{id_usuario}":{
             put:{
-                tags:["Usuarios"],
-                sumary: "Atualizar usuario completo",
+                tags:["Usuários"],
+                summary: "Atualizar usuario completo",
                 description:"atualiza todos os campos dos usuarios existente, sendo nescessário enviar todos os campos(nome, email, senha)",
                 parameters: [
                     {
@@ -99,13 +99,13 @@ const documentacao = {
         },
         "/departamentos": {
             get: {
-                tags: ["Departamentos"],
-                sumary: "Listar departamentos",
+                tags: ["departamentos"],
+                summary: "Listar departamentos",
                 responses: {
                     200: {
                         description: "dados obtidos com sucesso",
                         content: {
-                            "apllication/json": {
+                            "application/json": {
                                 schema: {
                                     type: "array",
                                     items: { $ref: "#/components/schemas/Lista_Departamentos" }
@@ -114,12 +114,38 @@ const documentacao = {
                         }
                     }
                 }
+            },
+            post:{
+                tags:['departamentos'],
+                summary: 'Cadastrar novo departamentos',
+                description: 'Recebe nome, descrição para cadastrar novo departamentos',
+                requestBody:{
+                    required: true,
+                    content:{
+                        'application/json':{
+                            schema:{
+                                $ref: '#/components/schemas/Cadastro_departamentos'
+                            }
+                        }
+                    }
+                },
+                responses:{
+                    201:{
+                        description: "departamentos cadastrado com sucesso",
+                    },
+                    400:{
+                        description: 'Erro na requisição(preencha todos os campos)'
+                    },
+                    500:{
+                        description: 'Erro interno no servidor'
+                    }
+                }
             }
         },
         "/departamentos/{id_departamento}":{
             put:{
                 tags:["departamentos"],
-                sumary: "Atualizar departamento completo",
+                summary: "Atualizar departamento completo",
                 description:"atualiza todos os campos dos departamentos existente, sendo nescessário enviar todos os campos(nome, descricao)",
                 parameters: [
                     {
@@ -150,15 +176,15 @@ const documentacao = {
                 }
             }
         },
-        "/ordemS": {
+        "/ordem_servicos": {
             get: {
                 tags: ['OrdemServico'],
-                sumary: "Lista da ordem de servições",
+                summary: "Lista da ordem de servições",
                 responses: {
                     200: {
                         description: "dados obtidos com sucesso",
                         content: {
-                            "apllication/json": {
+                            "application/json": {
                                 schema: {
                                     type: "array",
                                     items: { $ref: "#/components/schemas/Lista_Ordem" }
@@ -167,12 +193,39 @@ const documentacao = {
                         }
                     }
                 }
-            }
+            },
+            post:{
+                tags:['OrdemServico'],
+                summary: 'Cadastrar nova ordem',
+                description: 'Recebe nr_ordem, titulo, descricao, prioridade, status, data, id_usuario, id_departamento para cadastrar novo usuario',
+                requestBody:{
+                    required: true,
+                    content:{
+                        'application/json':{
+                            schema:{
+                                $ref: '#/components/schemas/Cadastro_Ordem'
+                            }
+                        }
+                    }
+                },
+                responses:{
+                    201:{
+                        description: "ordem_servicos cadastrado com sucesso",
+                    },
+                    400:{
+                        description: 'Erro na requisição(preencha todos os campos)'
+                    },
+                    500:{
+                        description: 'Erro interno no servidor'
+                    }
+                }
+            }    
+           
         },
         "/ordem_servicos/{id_ordem}":{
             put:{
-                tags:["ordem_servicoss"],
-                sumary: "Atualizar ordem_servicos completo",
+                tags:["OrdemServico"],
+                summary: "Atualizar ordem_servicos completo",
                 description:"atualiza todos os campos dos ordem_servicoss existente, sendo nescessário enviar todos os campos(nome, email, senha)",
                 parameters: [
                     {
@@ -239,6 +292,13 @@ const documentacao = {
                     descricao: { type: "string", example: "entre e vire a esquerda" }
                 }
             },
+            Cadastro_departamentos: {
+                type: "object",
+                properties: {
+                    nome: { type: "string", example: "carregador quebrado" },
+                    descricao: { type: "string", example: 'entre na sala 4' },
+                }
+            },
             Atualizacao_departamento: {
                 type: "object",
                 required: ["nome", "descricao"],
@@ -261,11 +321,23 @@ const documentacao = {
                     id_departamento: {type: "integer", example: 1}
                 }
             },
-            Atualizacao_ordem_servicos: {
+            Cadastro_Ordem: {
                 type: "object",
-                required: ["nr_ordem", "titulo", "descricao", "prioridade", "status", "data", "id_usuario", "id_departamento"] ,
                 properties: {
                     nr_ordem: { type: "integer", example: 1001 },
+                    titulo: { type: "string", example: 'trocar cabo de rede' },
+                    descricao: { type: "string", example: "ponto de rede da sala 203 esta sem conexão" },
+                    prioridade: { type: "string", example: "media" },
+                    status: { type: "string", example: "em andamento" },
+                    data: { type: "date", example: "2026-02-26"},
+                    id_usuario: {type: "integer", example: 1},
+                    id_departamento: {type: "integer", example: 1}
+                }
+            },
+            Atualizacao_ordem_servicos: {
+                type: "object",
+                required: ["titulo", "descricao", "prioridade", "status", "data", "id_usuario", "id_departamento"] ,
+                properties: {
                     titulo: { type: "string", example: 'trocar cabo de rede' },
                     descricao: { type: "string", example: "ponto de rede da sala 203 esta sem conexão" },
                     prioridade: { type: "string", example: "media" },

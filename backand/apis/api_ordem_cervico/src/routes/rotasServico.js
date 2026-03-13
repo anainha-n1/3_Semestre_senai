@@ -15,6 +15,26 @@ router.get('/ordem_servicos', async (req, res) => {
     }
 })
 
+router.post('/ordem_servicos', async (req, res) => {
+    const { nr_ordem, titulo, descricao, prioridade, status, data, id_usuario, id_departamento } = req.body
+
+    try {
+        const comando = `insert into ordem_servicos(nr_ordem, titulo, descricao, prioridade, status, data, id_usuario, id_departamento ) values($1, $2, $3, $4, $5, $6, $7, $8)`
+        const valores = [nr_ordem, titulo, descricao, prioridade, status, data, id_usuario, id_departamento]
+
+
+        const responsta = await BD.query(comando, valores)
+        console.log(responsta);
+
+
+        return res.status(201).json('ordem cadastrado')
+    } catch (error) {
+        console.error('Erro ao cadastrar ordem', error.message)
+        return res.status(500).json({ error: 'Erro ao cadastrar ordem' })
+    }
+
+})
+
 router.put('/ordem_servicos/:id_ordem', async (req, res) => {
     //id recebido via parametro
     const {id_ordem} = req.params;
