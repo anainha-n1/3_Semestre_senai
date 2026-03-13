@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lista de jogos</title>
+    <style>
+        /* Colocar codigo do estilo */
+        :root {
+            --bg: #f6f7fb;
+            --card: #ffffff;
+            --muted: #6b7280;
+            --primary: #10b981;
+            --primary-dark: #059669;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --shadow: 0 8px 24px rgba(0, 0, 0, .06);
+            --radius: 12px;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, Arial, Helvetica, sans-serif;
+            background: var(--bg);
+            color: #111827;
+        }
+
+        .wrap {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 16px;
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 24px;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 8px 0 24px;
+        }
+
+        .list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f3f4f6;
+            border-radius: 10px;
+            padding: 14px 16px;
+        }
+
+        .item small {
+            color: var(--muted);
+        }
+
+        .badge {
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 999px;
+            background: #e5e7eb;
+            color: #374151;
+            margin-left: 8px;
+        }
+
+        .badge.lido {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 120px;
+            gap: 8px;
+        }
+
+        input {
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+
+        button,
+        .btn {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: var(--primary);
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover,
+        .btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .danger {
+            background: var(--danger);
+        }
+
+        .warning {
+            background: var(--warning);
+        }
+
+        .erro {
+            background: #fee2e2;
+            border: 1px solid #fecaca;
+            color: #991b1b;
+            padding: 10px 12px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        .actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        a.link {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        a.link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="card">
+            <h1>Lista de jogos</h1>
+            <!-- Listando rankingJogadores -->
+            <% rankingJogador.forEach(l=> { %>
+                <div class="item">
+                    <div>
+                        <strong>
+                            <%= l.descricao() %>
+                        </strong>
+                        <small class="badge">
+                            <%= l.AdicionarPontos() %>
+                        </small>
+                        <% if(l.lido) { %>
+                            <small class="badge lido">Lido</small>
+                            <% } %>
+                                <div class="muted">
+                                    <%= l.paginas %> páginas
+                                </div>
+                    </div>
+              
+                <div class="actions">
+                    <form action="/rankingJogadores/marcar-pontuacao" method="post" style="display: inline;">
+                        <input type="hidden" name="id" value="<%= l.id %>" />
+                        <button class="warning" <%= l.lido ? 'disabled' : '' %>>
+                            <%= l.lido ? 'Já Lido' : 'Marcar como lido' %>
+                        </button>
+                    </form>
+                </div>
+                  </div>
+                  <% }) %>
+        </div>
+
+                <!--Codigo de adicionar  rankingJogadores  -->
+                      <!-- //Adicionando rankingJogadores -->
+
+      <h2 style="text-align:center; margin: 8px 0 12px;">Adicionar jogador</h2>
+      <form action="/rankingJogadores" method="POST" class="row">
+        <input type="text" name="titulo" placeholder="Título" required />
+        <input type="text" name="autor" placeholder="Autor" required />
+        <input type="number" name="paginas" placeholder="Páginas" min="1" required />
+        <button type="submit">Adicionar</button>
+      </form>
+        </div>
+
+</body>
+
+</html>

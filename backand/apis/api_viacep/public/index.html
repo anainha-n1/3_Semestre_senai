@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+     <h2>dog</h2>
+     <imput type="text" id="id">
+        <button onclick="carregarImg()">mostrar</button>
+
+        <img id="dog" src="" alt="">
+
+        <script>
+            async function carregarImg(){
+                const id = document.getElementById('id').value;
+                const resposta = await fetch(`/dog/${id}.json`);
+                const dados = await resposta.json()
+                res.json({url});
+                
+
+                document.getElementById("dog").src = dados.url
+                
+            }
+        </script>
+</body>
+</html>

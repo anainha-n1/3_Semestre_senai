@@ -1,0 +1,26 @@
+{
+   
+    "listadefuncionários": [
+        {"nome": "Marcos Silva", "idade": 32, "setor": "Suporte Técnico"},
+        {"nome": "Beatriz Costa", "idade": 27, "setor": "Vendas"},
+        {"nome": "Ricardo Alves,", "idade": 29, "setor": "Logistisca"},
+        {"nome": "Juliana Monteiro", "idade": 34, "setor": "Marketing"}
+    ],
+
+    "produtos":[
+        {"produtos": "Mouse Gamer", "valor": 120 },
+        {"produtos": "Teclado Mecânico", "valor": 250},
+        {"produtos": "Headset USB",  "valor": 180 },
+        {"produtos": "Monitor LED 24&quot", "valor": 850 },
+        {"produtos": "Webcam Full HD", "valor": 150}
+        
+    ],
+
+    "PedidosDoMês":[
+           {"mês": "Janeiro", "cliente": "Ana Souza", "comprou":"Mouse Gamer", "pagou": 120 },
+            {"mês": "Janeiro", "cliente": "Carlos Mendes", "comprou":"Teclado Mecânico", "pagou": 250 },
+            {"mês": "Janeiro", "cliente": "Fernanda Lima", "comprou": "Headset USB",  "pagou": 180  },
+            {"mês": "Fevereiro", "cliente": "Gabriel Santos", "comprou":"Monitor LED 24&quot", "pagou": 850 },
+            {"mês": "Fevereiro", "cliente": "Marina Rocha", "comprou": "Webcam Full HD", "pagou": 150 }
+        ]
+}
